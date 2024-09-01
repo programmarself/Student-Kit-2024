@@ -6,64 +6,87 @@ st.set_page_config(page_title="Student Kit 2024", layout="wide")
 # Custom CSS for styling
 st.markdown("""
     <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
     .main {
-        background-color: #f5f5f5;
-        color: #333;
-        font-family: 'Arial', sans-serif;
+        padding: 2rem;
     }
-    .sidebar .sidebar-content {
-        background-color: #003366;
+    .header {
+        background-color: #1E1E1E;
         color: white;
+        padding: 1rem;
+        text-align: center;
     }
-    .sidebar .sidebar-content h1 {
-        color: white;
-    }
-    .iframe-container {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    .nav {
+        background-color: #333;
         overflow: hidden;
     }
-    .iframe-container iframe {
-        width: 100%;
-        height: 800px;
+    .nav a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    .content {
+        margin: 1rem;
+    }
+    iframe {
         border: none;
     }
-    .title {
-        font-size: 36px;
-        font-weight: bold;
-        color: #003366;
-    }
-    .description {
-        font-size: 18px;
-        margin-bottom: 20px;
+    .footer {
+        background-color: #1E1E1E;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# Title and description
-st.markdown('<div class="title">🎓 Student Kit 2024</div>', unsafe_allow_html=True)
-st.markdown('<div class="description">Welcome to Student Kit 2024, your all-in-one platform for educational tools and resources. Use the navigation bar to explore and use the following applications:</div>', unsafe_allow_html=True)
+# Header
+st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
 
-# Define the application URLs
-apps = {
-    "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
-    "Fun Facts Generator": "https://fffstduent.streamlit.app/",
-    "Screenshot Master": "https://ssmaster.streamlit.app/",
-    "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
-}
-
-# Sidebar navigation
-with st.sidebar:
-    st.header("Navigation")
-    selection = st.radio("", list(apps.keys()))
-
-# Display the selected app in the main area
-app_url = apps.get(selection)
-
-if app_url:
-    st.markdown(f"""
-        <div class="iframe-container">
-            <iframe src="{app_url}"></iframe>
-        </div>
+# Navigation Bar
+st.markdown("""
+    <div class="nav">
+        <a href="#app1">Educational Resource Recommender System</a>
+        <a href="#app2">Fun Facts Generator</a>
+        <a href="#app3">Screenshot Master</a>
+        <a href="#app4">LinkedIn Text Formatter</a>
+    </div>
     """, unsafe_allow_html=True)
+
+# Main Content Area
+st.markdown('<div class="main">', unsafe_allow_html=True)
+
+# Application 1
+st.markdown('<div id="app1" class="content"><h2>Educational Resource Recommender System</h2>', unsafe_allow_html=True)
+st.markdown('<iframe src="https://ersystem.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Application 2
+st.markdown('<div id="app2" class="content"><h2>Fun Facts Generator</h2>', unsafe_allow_html=True)
+st.markdown('<iframe src="https://fffstduent.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Application 3
+st.markdown('<div id="app3" class="content"><h2>Screenshot Master</h2>', unsafe_allow_html=True)
+st.markdown('<iframe src="https://ssmaster.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Application 4
+st.markdown('<div id="app4" class="content"><h2>LinkedIn Text Formatter</h2>', unsafe_allow_html=True)
+st.markdown('<iframe src="https://linkedin-text-formatter.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer
+st.markdown('<div class="footer"><p>© 2024 Student Kit 2024 | All rights reserved</p></div>', unsafe_allow_html=True)
