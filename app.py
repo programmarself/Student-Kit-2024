@@ -103,3 +103,5 @@ def display_page():
 display_page()
 # Footer
 st.markdown('<div class="footer"><p>© 2024 Student Kit 2024 | All rights reserved</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="footer"><p> Developed By:Irfan Ullah Khan|ID :536</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="footer"><p> Group Name : Programmarself |https://flowcv.me/ikm </p></div>', unsafe_allow_html=True)
