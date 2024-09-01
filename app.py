@@ -12,10 +12,10 @@ st.markdown("""
 
 # List of applications with their names and URLs
 apps = {
-    "App 1: Educational Resource Finder": "https://your-app1-url.streamlit.app",
-    "App 2: Fun Facts Generator": "https://your-app2-url.streamlit.app",
-    "App 3: Interactive Learning Tools": "https://your-app3-url.streamlit.app",
-    "App 4: Text Formatter": "https://your-app4-url.streamlit.app"
+    "App 1: Educational Resource Recommender System": "https://ersystem.streamlit.app/",
+    "App 2: Fun Facts Generator": "https://fffstduent.streamlit.app/",
+    "App 3: Screenshot Master": "https://ssmaster.streamlit.app/",
+    "App 4: LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
 # Display each app in an iframe
