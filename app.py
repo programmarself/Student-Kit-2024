@@ -15,6 +15,7 @@ st.markdown("""
         color: white;
         padding: 1rem;
         text-align: center;
+        position: relative;
     }
     .nav {
         background-color: #333;
@@ -22,7 +23,7 @@ st.markdown("""
         justify-content: center;
         padding: 0.5rem;
         margin: 0;
-        position: fixed;
+        position: absolute;
         top: 0;
         width: 100%;
         z-index: 1000;
@@ -33,6 +34,7 @@ st.markdown("""
         text-decoration: none;
         font-size: 18px;
         font-weight: bold;
+        display: inline-block;
     }
     .nav a:hover {
         background-color: #575757;
@@ -59,9 +61,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Header
-st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
-
 # Define applications and their URLs
 apps = {
     "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
@@ -73,12 +72,20 @@ apps = {
 # Get the selected application from query parameters
 selected_app = st.experimental_get_query_params().get("app", [list(apps.keys())[0]])[0]
 
-# Create the navigation bar
+# Create the header with application names
 nav_links = "".join([
-    f'<a href="?app={app_name}" class="nav-link">{app_name}</a>'
+    f'<a href="?app={app_name}">{app_name}</a>'
     for app_name in apps.keys()
 ])
-st.markdown(f'<div class="nav">{nav_links}</div>', unsafe_allow_html=True)
+
+st.markdown(f'''
+    <div class="header">
+        <h1>🎓 Student Kit 2024</h1>
+        <div class="nav">
+            {nav_links}
+        </div>
+    </div>
+''', unsafe_allow_html=True)
 
 # Content Area
 st.markdown('<div class="content">', unsafe_allow_html=True)
