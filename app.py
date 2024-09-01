@@ -8,6 +8,7 @@ st.markdown("""
     <style>
     body {
         font-family: Arial, sans-serif;
+        margin: 0;
     }
     .header {
         background-color: #1E1E1E;
@@ -17,22 +18,34 @@ st.markdown("""
     }
     .nav {
         background-color: #333;
-        color: white;
-        padding: 1rem;
-    }
-    .nav select {
-        background-color: #333;
-        color: white;
-        border: none;
+        display: flex;
+        justify-content: center;
         padding: 0.5rem;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    .nav a {
+        color: white;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .nav a:hover {
+        background-color: #575757;
     }
     .content {
-        margin: 1rem;
+        margin-top: 70px; /* Adjust for navbar height */
+        padding: 1rem;
+        text-align: center;
     }
     iframe {
         border: none;
         width: 100%;
-        height: 600px;
+        height: 800px; /* Adjust as needed */
     }
     .footer {
         background-color: #1E1E1E;
@@ -49,37 +62,28 @@ st.markdown("""
 # Header
 st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
 
-# Navigation and Content Selector
-option = st.selectbox(
-    'Select an Application',
-    [
-        'Select an Application',
-        'Educational Resource Recommender System',
-        'Fun Facts Generator',
-        'Screenshot Master',
-        'LinkedIn Text Formatter'
-    ]
-)
+# Define applications and their URLs
+apps = {
+    "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
+    "Fun Facts Generator": "https://fffstduent.streamlit.app/",
+    "Screenshot Master": "https://ssmaster.streamlit.app/",
+    "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
+}
+
+# Get the selected application from query parameters
+selected_app = st.experimental_get_query_params().get("app", [list(apps.keys())[0]])[0]
+
+# Create the navigation bar
+nav_links = "".join([
+    f'<a href="?app={app_name}" class="nav-link">{app_name}</a>'
+    for app_name in apps.keys()
+])
+st.markdown(f'<div class="nav">{nav_links}</div>', unsafe_allow_html=True)
 
 # Content Area
 st.markdown('<div class="content">', unsafe_allow_html=True)
-
-if option == 'Educational Resource Recommender System':
-    st.markdown('<h2>Educational Resource Recommender System</h2>', unsafe_allow_html=True)
-    st.markdown('<iframe src="https://ersystem.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'Fun Facts Generator':
-    st.markdown('<h2>Fun Facts Generator</h2>', unsafe_allow_html=True)
-    st.markdown('<iframe src="https://fffstduent.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'Screenshot Master':
-    st.markdown('<h2>Screenshot Master</h2>', unsafe_allow_html=True)
-    st.markdown('<iframe src="https://ssmaster.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'LinkedIn Text Formatter':
-    st.markdown('<h2>LinkedIn Text Formatter</h2>', unsafe_allow_html=True)
-    st.markdown('<iframe src="https://linkedin-text-formatter.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
+st.markdown(f'<h2>{selected_app}</h2>', unsafe_allow_html=True)
+st.markdown(f'<iframe src="{apps[selected_app]}"></iframe>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
