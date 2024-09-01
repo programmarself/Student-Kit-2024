@@ -11,82 +11,66 @@ apps = {
     "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
-# Create the navigation bar
-st.markdown("""
+# Sidebar: Generate navigation links
+def get_nav_links():
+    return "".join([
+        f'<a href="/?app={app_name}" class="nav-link">{app_name}</a>'
+        for app_name in apps.keys()
+    ])
+
+# Get the selected application from query parameters
+def get_selected_app():
+    query_params = st.experimental_get_query_params()
+    return query_params.get("app", ["Educational Resource Recommender System"])[0]
+
+# Set up the navigation bar and content layout
+def display_page():
+    selected_app = get_selected_app()
+
+    # Create the navigation bar
+    st.markdown(f"""
     <style>
-        .navbar {
-            overflow: hidden;
+        .navbar {{
+            display: flex;
+            justify-content: center;
             background-color: #333;
             padding: 10px;
-        }
-        .navbar a {
-            float: left;
-            display: block;
+        }}
+        .nav-link {{
             color: #f2f2f2;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
             font-size: 18px;
-        }
-        .navbar a:hover {
+            font-weight: bold;
+        }}
+        .nav-link:hover {{
             background-color: #ddd;
             color: black;
-        }
-        .content {
+        }}
+        .content {{
             padding: 20px;
             text-align: center;
-        }
-        .app-header {
+        }}
+        .app-header {{
             font-size: 24px;
             margin-top: 20px;
-        }
-        .app-frame {
+            font-weight: bold;
+        }}
+        .app-frame {{
             width: 100%;
             height: 800px;
             border: none;
-        }
-    </style>
-    <div class="navbar">
-        {nav_links}
-    </div>
-    <div class="content">
-        <div class="app-header">{app_name}</div>
-        <iframe class="app-frame" src="{app_url}"></iframe>
-    </div>
-""", unsafe_allow_html=True)
-
-# Handle navigation and display the selected app
-selected_app = st.experimental_get_query_params().get("app", ["Educational Resource Recommender System"])[0]
-
-# Generate navigation links
-nav_links = "".join([
-    f'<a href="?app={app_name}">{app_name}</a>'
-    for app_name in apps.keys()
-])
-
-# Display the navigation links and content
-st.markdown(f"""
-    <script>
-        // Set the default application on page load
-        const app_name = "{selected_app}";
-        document.querySelector(".app-header").innerText = app_name;
-        document.querySelector(".app-frame").src = "{apps[selected_app]}";
-    </script>
-""", unsafe_allow_html=True)
-
-# Function to handle the navigation
-def update_app_url(app_name):
-    st.experimental_set_query_params(app=app_name)
-
-# Update the selected app if changed
-if st.experimental_get_query_params().get("app"):
-    selected_app = st.experimental_get_query_params().get("app")[0]
-
-# Render the navigation and selected app
-st.markdown(f"""
-    <style>
-        .navbar a {{
-            font-weight: { 'bold' if selected_app == app_name else 'normal' };
         }}
     </style>
-""", unsafe_allow_html=True)
+    <div class="navbar">
+        {get_nav_links()}
+    </div>
+    <div class="content">
+        <div class="app-header">{selected_app}</div>
+        <iframe class="app-frame" src="{apps[selected_app]}"></iframe>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Display the page content
+display_page()
