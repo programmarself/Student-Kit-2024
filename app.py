@@ -27,20 +27,31 @@ def get_selected_app():
 def display_page():
     selected_app = get_selected_app()
 
-    # Create the navigation bar
+    # Create the header, navigation bar, and content layout
     st.markdown(f"""
     <style>
         body {{
             margin: 0;
             font-family: Arial, sans-serif;
         }}
+        .header {{
+            background-color: #1E1E1E;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }}
         .navbar {{
             display: flex;
             justify-content: center;
-            background-color: #1E1E1E;
+            background-color: #333;
             padding: 10px;
             position: sticky;
-            top: 0;
+            top: 60px; /* Adjust based on header height */
             width: 100%;
             z-index: 1000;
         }}
@@ -63,7 +74,7 @@ def display_page():
         .content {{
             padding: 20px;
             text-align: center;
-            margin-top: 60px; /* Space for sticky navbar */
+            margin-top: 20px; /* Space for sticky navbar */
         }}
         .app-header {{
             font-size: 24px;
@@ -76,6 +87,9 @@ def display_page():
             border: none;
         }}
     </style>
+    <div class="header">
+        Student Kit 2024
+    </div>
     <div class="navbar">
         {get_nav_links(selected_app)}
     </div>
