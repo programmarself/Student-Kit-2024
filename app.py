@@ -3,78 +3,84 @@
 # Set page configuration
 st.set_page_config(page_title="Student Kit 2024", layout="wide")
 
-# Define applications and their URLs
-apps = {
-    "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
-    "Fun Facts Generator": "https://fffstduent.streamlit.app/",
-    "Screenshot Master": "https://ssmaster.streamlit.app/",
-    "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
-}
-
-# Create the navigation bar
-def get_nav_links(selected_app):
-    return "".join([
-        f'<a href="?app={app_name}" class="nav-link">{app_name}</a>'
-        for app_name in apps.keys()
-    ])
-
-# Get the selected application from query parameters
-def get_selected_app():
-    query_params = st.experimental_get_query_params()
-    return query_params.get("app", ["Educational Resource Recommender System"])[0]
-
-# Set up the navigation bar and content layout
-def display_page():
-    selected_app = get_selected_app()
-
-    # Create the navigation bar
-    st.markdown(f"""
+# Custom CSS for styling
+st.markdown("""
     <style>
-        .navbar {{
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            padding: 10px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }}
-        .nav-link {{
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }}
-        .nav-link:hover {{
-            background-color: #ddd;
-            color: black;
-        }}
-        .content {{
-            padding: 80px 20px 20px;  /* Adjust for navbar height */
-            text-align: center;
-        }}
-        .app-header {{
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
-        }}
-        .app-frame {{
-            width: 100%;
-            height: 800px;
-            border: none;
-        }}
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .header {
+        background-color: #1E1E1E;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+    }
+    .nav {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+    }
+    .nav select {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+    }
+    .content {
+        margin: 1rem;
+    }
+    iframe {
+        border: none;
+        width: 100%;
+        height: 600px;
+    }
+    .footer {
+        background-color: #1E1E1E;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
     </style>
-    <div class="navbar">
-        {get_nav_links(selected_app)}
-    </div>
-    <div class="content">
-        <div class="app-header">{selected_app}</div>
-        <iframe class="app-frame" src="{apps[selected_app]}"></iframe>
-    </div>
     """, unsafe_allow_html=True)
 
-# Display the page content
-display_page()
+# Header
+st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
+
+# Navigation and Content Selector
+option = st.selectbox(
+    'Select an Application',
+    [
+        'Select an Application',
+        'Educational Resource Recommender System',
+        'Fun Facts Generator',
+        'Screenshot Master',
+        'LinkedIn Text Formatter'
+    ]
+)
+
+# Content Area
+st.markdown('<div class="content">', unsafe_allow_html=True)
+
+if option == 'Educational Resource Recommender System':
+    st.markdown('<h2>Educational Resource Recommender System</h2>', unsafe_allow_html=True)
+    st.markdown('<iframe src="https://ersystem.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+
+elif option == 'Fun Facts Generator':
+    st.markdown('<h2>Fun Facts Generator</h2>', unsafe_allow_html=True)
+    st.markdown('<iframe src="https://fffstduent.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+
+elif option == 'Screenshot Master':
+    st.markdown('<h2>Screenshot Master</h2>', unsafe_allow_html=True)
+    st.markdown('<iframe src="https://ssmaster.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+
+elif option == 'LinkedIn Text Formatter':
+    st.markdown('<h2>LinkedIn Text Formatter</h2>', unsafe_allow_html=True)
+    st.markdown('<iframe src="https://linkedin-text-formatter.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer
+st.markdown('<div class="footer"><p>© 2024 Student Kit 2024 | All rights reserved</p></div>', unsafe_allow_html=True)
