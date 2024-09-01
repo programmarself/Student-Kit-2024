@@ -26,7 +26,6 @@ st.markdown("""
         color: white;
         padding: 1rem;
         text-align: center;
-        position: relative;
     }
     .nav {
         background-color: #333;
@@ -47,6 +46,9 @@ st.markdown("""
         display: inline-block;
     }
     .nav a:hover {
+        background-color: #575757;
+    }
+    .nav a.active {
         background-color: #575757;
     }
     .content {
@@ -71,16 +73,16 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Create the header with application names
+# Create the header
+st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
+
+# Create the navigation bar with links to each app
 nav_links = "".join([
-    f'<a href="?app={app_name}" style="font-weight: {"bold" if app_name == selected_app else "normal"};">{app_name}</a>'
+    f'<a href="?app={app_name}" class={"active" if app_name == selected_app else ""}>{app_name}</a>'
     for app_name in apps.keys()
 ])
 
 st.markdown(f'''
-    <div class="header">
-        <h1>🎓 Student Kit 2024</h1>
-    </div>
     <div class="nav">
         {nav_links}
     </div>
