@@ -19,20 +19,22 @@ st.markdown("""
         background-color: #333;
         color: white;
         padding: 1rem;
+        text-align: center;
     }
-    .nav select {
-        background-color: #333;
+    .nav a {
         color: white;
-        border: none;
-        padding: 0.5rem;
+        text-decoration: none;
+        margin: 0 1rem;
+        font-weight: bold;
+    }
+    .nav a:hover {
+        text-decoration: underline;
     }
     .content {
         margin: 1rem;
     }
     iframe {
         border: none;
-        width: 100%;
-        height: 600px;
     }
     .footer {
         background-color: #1E1E1E;
@@ -49,35 +51,30 @@ st.markdown("""
 # Header
 st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
 
-# Navigation and Content Selector
-option = st.selectbox(
-    'Select an Application',
-    [
-        'Select an Application',
-        'Educational Resource Recommender System',
-        'Fun Facts Generator',
-        'Screenshot Master',
-        'LinkedIn Text Formatter'
-    ]
+# Sidebar for application selection
+app_option = st.sidebar.selectbox(
+    "Choose an application:",
+    ["Educational Resource Recommender System", 
+     "Fun Facts Generator", 
+     "Screenshot Master", 
+     "LinkedIn Text Formatter"]
 )
 
-# Content Area
+# Main content area
 st.markdown('<div class="content">', unsafe_allow_html=True)
 
-if option == 'Educational Resource Recommender System':
-    st.markdown('<h2>Educational Resource Recommender System</h2>', unsafe_allow_html=True)
+# Display the selected application
+if app_option == "Educational Resource Recommender System":
+    st.header("Educational Resource Recommender System")
     st.markdown('<iframe src="https://ersystem.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'Fun Facts Generator':
-    st.markdown('<h2>Fun Facts Generator</h2>', unsafe_allow_html=True)
+elif app_option == "Fun Facts Generator":
+    st.header("Fun Facts Generator")
     st.markdown('<iframe src="https://fffstduent.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'Screenshot Master':
-    st.markdown('<h2>Screenshot Master</h2>', unsafe_allow_html=True)
+elif app_option == "Screenshot Master":
+    st.header("Screenshot Master")
     st.markdown('<iframe src="https://ssmaster.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
-
-elif option == 'LinkedIn Text Formatter':
-    st.markdown('<h2>LinkedIn Text Formatter</h2>', unsafe_allow_html=True)
+elif app_option == "LinkedIn Text Formatter":
+    st.header("LinkedIn Text Formatter")
     st.markdown('<iframe src="https://linkedin-text-formatter.streamlit.app/" width="100%" height="600"></iframe>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
