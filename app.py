@@ -3,6 +3,17 @@
 # Set page configuration
 st.set_page_config(page_title="Student Kit 2024", layout="wide")
 
+# Define applications and their URLs
+apps = {
+    "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
+    "Fun Facts Generator": "https://fffstduent.streamlit.app/",
+    "Screenshot Master": "https://ssmaster.streamlit.app/",
+    "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
+}
+
+# Get the selected application from query parameters
+selected_app = st.experimental_get_query_params().get("app", [list(apps.keys())[0]])[0]
+
 # Custom CSS for styling
 st.markdown("""
     <style>
@@ -16,14 +27,14 @@ st.markdown("""
         padding: 1rem;
         text-align: center;
         position: relative;
+        z-index: 1000;
     }
     .nav {
         background-color: #333;
         display: flex;
         justify-content: center;
         padding: 0.5rem;
-        margin: 0;
-        position: absolute;
+        position: fixed;
         top: 0;
         width: 100%;
         z-index: 1000;
@@ -40,7 +51,7 @@ st.markdown("""
         background-color: #575757;
     }
     .content {
-        margin-top: 70px; /* Adjust for navbar height */
+        margin-top: 60px; /* Adjust for navbar height */
         padding: 1rem;
         text-align: center;
     }
@@ -61,17 +72,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Define applications and their URLs
-apps = {
-    "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
-    "Fun Facts Generator": "https://fffstduent.streamlit.app/",
-    "Screenshot Master": "https://ssmaster.streamlit.app/",
-    "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
-}
-
-# Get the selected application from query parameters
-selected_app = st.experimental_get_query_params().get("app", [list(apps.keys())[0]])[0]
-
 # Create the header with application names
 nav_links = "".join([
     f'<a href="?app={app_name}">{app_name}</a>'
@@ -81,9 +81,9 @@ nav_links = "".join([
 st.markdown(f'''
     <div class="header">
         <h1>🎓 Student Kit 2024</h1>
-        <div class="nav">
-            {nav_links}
-        </div>
+    </div>
+    <div class="nav">
+        {nav_links}
     </div>
 ''', unsafe_allow_html=True)
 
