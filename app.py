@@ -3,32 +3,14 @@
 # Set page configuration
 st.set_page_config(page_title="Student Kit 2024", layout="wide")
 
-# Title and description with custom styling
+# Title and description
+st.title("🎓 Student Kit 2024")
 st.markdown("""
-    <style>
-    .title {
-        font-size: 36px;
-        font-weight: bold;
-        text-align: center;
-        color: #1f77b4;
-    }
-    .description {
-        font-size: 18px;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .app-container {
-        margin-bottom: 40px;
-    }
-    </style>
-    <p class="title">🎓 Student Kit 2024</p>
-    <p class="description">
-        Welcome to Student Kit 2024, your all-in-one platform for educational tools and resources.
-        Explore and use the following applications:
-    </p>
-""", unsafe_allow_html=True)
+    Welcome to Student Kit 2024, your all-in-one platform for educational tools and resources.
+    Use the navigation bar to explore and use the following applications:
+""")
 
-# List of applications with their names and URLs
+# Define the application URLs
 apps = {
     "Educational Resource Recommender System": "https://ersystem.streamlit.app/",
     "Fun Facts Generator": "https://fffstduent.streamlit.app/",
@@ -36,11 +18,15 @@ apps = {
     "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
-# Display each app in a styled iframe
-for name, url in apps.items():
+# Sidebar navigation
+with st.sidebar:
+    st.header("Navigation")
+    selection = st.radio("Go to", list(apps.keys()))
+
+# Display the selected app in the main area
+app_url = apps.get(selection)
+
+if app_url:
     st.markdown(f"""
-        <div class="app-container">
-            <h2>{name}</h2>
-            <iframe src="{url}" width="100%" height="700" frameborder="0"></iframe>
-        </div>
+        <iframe src="{app_url}" width="100%" height="800" frameborder="0"></iframe>
     """, unsafe_allow_html=True)
