@@ -11,88 +11,66 @@ apps = {
     "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
-# Get the selected application from query parameters
-selected_app = st.experimental_get_query_params().get("app", [list(apps.keys())[0]])[0]
+# Sidebar: Generate navigation links
+def get_nav_links():
+    return "".join([
+        f'<a href="/?app={app_name}" class="nav-link">{app_name}</a>'
+        for app_name in apps.keys()
+    ])
 
-# Custom CSS for styling
-st.markdown("""
+# Get the selected application from query parameters
+def get_selected_app():
+    query_params = st.experimental_get_query_params()
+    return query_params.get("app", ["Educational Resource Recommender System"])[0]
+
+# Set up the navigation bar and content layout
+def display_page():
+    selected_app = get_selected_app()
+
+    # Create the navigation bar
+    st.markdown(f"""
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-    }
-    .header {
-        background-color: #1E1E1E;
-        color: white;
-        padding: 1rem;
-        text-align: center;
-    }
-    .nav {
-        background-color: #333;
-        display: flex;
-        justify-content: center;
-        padding: 0.5rem;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-    }
-    .nav a {
-        color: white;
-        padding: 0.5rem 1rem;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: bold;
-        display: inline-block;
-    }
-    .nav a:hover {
-        background-color: #575757;
-    }
-    .nav a.active {
-        background-color: #575757;
-    }
-    .content {
-        margin-top: 60px; /* Adjust for navbar height */
-        padding: 1rem;
-        text-align: center;
-    }
-    iframe {
-        border: none;
-        width: 100%;
-        height: 800px; /* Adjust as needed */
-    }
-    .footer {
-        background-color: #1E1E1E;
-        color: white;
-        text-align: center;
-        padding: 1rem;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
+        .navbar {{
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px;
+        }}
+        .nav-link {{
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }}
+        .nav-link:hover {{
+            background-color: #ddd;
+            color: black;
+        }}
+        .content {{
+            padding: 20px;
+            text-align: center;
+        }}
+        .app-header {{
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+        }}
+        .app-frame {{
+            width: 100%;
+            height: 800px;
+            border: none;
+        }}
     </style>
+    <div class="navbar">
+        {get_nav_links()}
+    </div>
+    <div class="content">
+        <div class="app-header">{selected_app}</div>
+        <iframe class="app-frame" src="{apps[selected_app]}"></iframe>
+    </div>
     """, unsafe_allow_html=True)
 
-# Create the header
-st.markdown('<div class="header"><h1>🎓 Student Kit 2024</h1></div>', unsafe_allow_html=True)
-
-# Create the navigation bar with links to each app
-nav_links = "".join([
-    f'<a href="?app={app_name}" class={"active" if app_name == selected_app else ""}>{app_name}</a>'
-    for app_name in apps.keys()
-])
-
-st.markdown(f'''
-    <div class="nav">
-        {nav_links}
-    </div>
-''', unsafe_allow_html=True)
-
-# Content Area
-st.markdown('<div class="content">', unsafe_allow_html=True)
-st.markdown(f'<h2>{selected_app}</h2>', unsafe_allow_html=True)
-st.markdown(f'<iframe src="{apps[selected_app]}"></iframe>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown('<div class="footer"><p>© 2024 Student Kit 2024 | All rights reserved</p></div>', unsafe_allow_html=True)
+# Display the page content
+display_page()
