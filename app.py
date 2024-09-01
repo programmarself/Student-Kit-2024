@@ -1,4 +1,5 @@
 ﻿import streamlit as st
+from streamlit.components.v1 import html
 
 # Set page configuration
 st.set_page_config(page_title="Student Kit 2024", layout="wide")
@@ -11,43 +12,36 @@ apps = {
     "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
-# Create a top navigation bar
-st.markdown("""
+# Create a top navigation bar with clickable links
+nav_links = "".join([f'<a href="javascript:void(0);" onclick="document.getElementById(\'app-frame\').src=\'{url}\';">{name}</a>' 
+                     for name, url in apps.items()])
+
+nav_html = f"""
     <style>
-    .navbar {
+    .navbar {{
         display: flex;
         justify-content: center;
         background-color: #f8f9fa;
         padding: 10px;
         border-bottom: 1px solid #dee2e6;
-    }
-    .navbar a {
+    }}
+    .navbar a {{
         text-decoration: none;
         color: #007bff;
         margin: 0 15px;
         font-weight: bold;
-    }
-    .navbar a:hover {
+    }}
+    .navbar a:hover {{
         color: #0056b3;
-    }
+    }}
     </style>
     <div class="navbar">
-        <a href="#ersystem">Educational Resource Recommender System</a>
-        <a href="#funfacts">Fun Facts Generator</a>
-        <a href="#screenshot">Screenshot Master</a>
-        <a href="#linkedin">LinkedIn Text Formatter</a>
+        {nav_links}
     </div>
-    """, unsafe_allow_html=True)
-
-# Define the app selector
-selected_app = st.selectbox("Select an Application", options=list(apps.keys()))
-
-# Display the selected application
-app_url = apps[selected_app]
-
-st.markdown(f"""
     <div style="text-align:center;">
-        <h2>{selected_app}</h2>
-        <iframe src="{app_url}" width="100%" height="800" frameborder="0"></iframe>
+        <iframe id="app-frame" src="{list(apps.values())[0]}" width="100%" height="800" frameborder="0"></iframe>
     </div>
-    """, unsafe_allow_html=True)
+    """
+
+# Display the HTML in Streamlit
+html(nav_html, height=900, scrolling=True)
