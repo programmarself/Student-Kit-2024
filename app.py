@@ -11,17 +11,17 @@ apps = {
     "LinkedIn Text Formatter": "https://linkedin-text-formatter.streamlit.app/"
 }
 
-# Sidebar: Generate navigation links
-def get_nav_links():
+# Generate navigation links
+def get_nav_links(selected_app):
     return "".join([
-        f'<a href="/?app={app_name}" class="nav-link">{app_name}</a>'
+        f'<a href="/?app={app_name}" class="nav-link { "active" if app_name == selected_app else "" }">{app_name}</a>'
         for app_name in apps.keys()
     ])
 
 # Get the selected application from query parameters
 def get_selected_app():
     query_params = st.experimental_get_query_params()
-    return query_params.get("app", ["Educational Resource Recommender System"])[0]
+    return query_params.get("app", [list(apps.keys())[0]])[0]
 
 # Set up the navigation bar and content layout
 def display_page():
@@ -30,11 +30,19 @@ def display_page():
     # Create the navigation bar
     st.markdown(f"""
     <style>
+        body {{
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }}
         .navbar {{
             display: flex;
             justify-content: center;
-            background-color: #333;
+            background-color: #1E1E1E;
             padding: 10px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }}
         .nav-link {{
             color: #f2f2f2;
@@ -45,16 +53,21 @@ def display_page():
             font-weight: bold;
         }}
         .nav-link:hover {{
-            background-color: #ddd;
-            color: black;
+            background-color: #575757;
+            color: white;
+        }}
+        .active {{
+            background-color: #575757;
+            color: white;
         }}
         .content {{
             padding: 20px;
             text-align: center;
+            margin-top: 60px; /* Space for sticky navbar */
         }}
         .app-header {{
             font-size: 24px;
-            margin-top: 20px;
+            margin-bottom: 20px;
             font-weight: bold;
         }}
         .app-frame {{
@@ -64,7 +77,7 @@ def display_page():
         }}
     </style>
     <div class="navbar">
-        {get_nav_links()}
+        {get_nav_links(selected_app)}
     </div>
     <div class="content">
         <div class="app-header">{selected_app}</div>
