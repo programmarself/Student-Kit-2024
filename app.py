@@ -27,7 +27,6 @@ st.markdown("""
         padding: 1rem;
         text-align: center;
         position: relative;
-        z-index: 1000;
     }
     .nav {
         background-color: #333;
@@ -74,7 +73,7 @@ st.markdown("""
 
 # Create the header with application names
 nav_links = "".join([
-    f'<a href="?app={app_name}">{app_name}</a>'
+    f'<a href="?app={app_name}" style="font-weight: {"bold" if app_name == selected_app else "normal"};">{app_name}</a>'
     for app_name in apps.keys()
 ])
 
