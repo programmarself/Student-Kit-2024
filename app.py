@@ -101,3 +101,5 @@ def display_page():
 
 # Display the page content
 display_page()
+# Footer
+st.markdown('<div class="footer"><p>© 2024 Student Kit 2024 | All rights reserved</p></div>', unsafe_allow_html=True)
