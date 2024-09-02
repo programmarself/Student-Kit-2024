@@ -37,6 +37,8 @@ Irfan Ullah Khan , Tasbih Ullah Khan , Fayaz Khan
 ### Call to Action :
 
 Encourage judges to try Student Kit 2024 and provide feedback.
+# Appliction to run :
+sk2024.streamlit.app/#screenshot
 
 <h2 style="font-family: 'poppins'; font-weight: bold; color: Green;">👨💻 Author: Irfan Ullah Khan</h2>
 
