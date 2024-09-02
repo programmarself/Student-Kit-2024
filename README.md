@@ -28,7 +28,7 @@ Save students time by consolidating multiple tools.
 Enhance understanding and engagement with educational content.
 ### User-friendly interface :
 Provide a seamless experience for students of all ages.
-Team Information :
+# Team Information :
 ### Project Name : Student Kit 2024
 ### Team Name : programmarself
 ### Team Leader : Irfan Ullah Khan
